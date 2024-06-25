@@ -50,5 +50,13 @@ public class Main {
         ArrayList<Integer> bioArray = new ArrayList<>(Arrays.asList(1, 20, 50, 40, 10));
         x = BinarySearch.findInBiotonicArray(bioArray, 1);
         System.out.printf("Bio Index %d%n", x);
+
+        // Painters Partition Problem
+        int noOfWorkers = 4;
+        int costToUnitWork = 10;
+        ArrayList<Integer> tasks = new ArrayList<>(Arrays.asList(658, 786, 531, 47, 169, 297, 914));
+        x = BinarySearch.paint(noOfWorkers, costToUnitWork, tasks);
+
+        System.out.printf("Minimum amount of time to complete the tasks %d%n", x);
     }
 }
