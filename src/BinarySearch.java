@@ -1,6 +1,4 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
+import java.util.*;
 
 class BinarySearch {
     // How many times the array is rotated
@@ -417,4 +415,55 @@ class BinarySearch {
 
     }//end-of-main
 
+    public static boolean ifPossible(long workers, ArrayList<Integer> workArray, int timeallocated, long sum)
+    {
+        long totalWork = 0;
+        int iter = 0;
+        for(int i = 0; i < workers; i++)
+        {
+            long currentWork = 0;
+
+
+            while(iter < ( workArray.size() ) && (currentWork + workArray.get(iter)) <= timeallocated)
+            {
+                currentWork += workArray.get(iter);
+                iter ++;
+            }
+
+            totalWork += currentWork;
+            if (iter == workArray.size() || totalWork >= sum)
+                return true;
+
+        } // end-of-for
+
+        return false;
+    }
+
+    public static int paint(int A, int B, ArrayList<Integer> C) {
+
+        long low = Collections.max(C), high = C.stream().mapToInt(Integer::intValue).sum();
+
+        for (int number : C) {
+            high += number;
+        }
+
+        long sum = high;
+        // System.out.printf("low %d, high %d%n", low, high);
+        while (low <= high)
+        {
+            int mid = (int) (low + (high - low)/2);
+            // System.out.printf("mid %d%n",mid);
+            if(ifPossible(A, C, mid, sum))
+            {
+                // System.out.printf("ans: %d%n",mid);
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+            // return low;//indefinate break
+        } // end-of-while
+
+
+        return (int)(((low%10000003)*(B%10000003))%10000003);
+    }   // end-of-paint-method
 }
