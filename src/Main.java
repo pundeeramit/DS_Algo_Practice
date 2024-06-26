@@ -58,5 +58,11 @@ public class Main {
         x = BinarySearch.paint(noOfWorkers, costToUnitWork, tasks);
 
         System.out.printf("Minimum amount of time to complete the tasks %d%n", x);
+
+
+        ArrayList<Integer> stalls = new ArrayList<>(Arrays.asList(1,2,3,4,5));
+        int cows = 3;
+        x = BinarySearch.aggressiveCows(stalls,cows);
+        System.out.printf("Minimum distance: %d%n",x);
     }
 }

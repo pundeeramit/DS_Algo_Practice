@@ -466,4 +466,60 @@ class BinarySearch {
 
         return (int)(((low%10000003)*(B%10000003))%10000003);
     }   // end-of-paint-method
+
+    public static boolean settleCows(ArrayList<Integer> stalls, int cows, int gap)
+    {
+        int lastCowAtStall = 0;
+        cows --;
+
+        if(cows == 0)
+            return true;
+
+        for (int i = 1; i < stalls.size(); i ++)
+        {
+            //System.out.printf("stalls at i %d, cows left %d %n",stalls.get(i), cows);
+
+            //System.out.printf("stalls difference %d %n", (stalls.get(i) - stalls.get(lastCowAtStall)) );
+
+            if (cows > 0 && ( stalls.get(i) - stalls.get(lastCowAtStall) ) >= gap)
+            {
+                //System.out.printf("yes%n");
+                // System.out.printf("we can place cow at %d %n",stalls.get(i));
+                cows --;
+                lastCowAtStall = i;
+
+                if (cows == 0)
+                    return true;
+            } // end-of-if-clause
+
+        } // end-of-for-loop
+
+        // System.out.printf("returned %n");
+        return false;
+    } // end-of-method
+
+
+    public static int aggressiveCows(ArrayList<Integer> A, int B)
+    {
+        Collections.sort(A);
+        //int low = 1, high = A.get(A.size() - 1) - A.get(0);
+        int low = 1, high = A.get(A.size() - 1);
+
+        while (low <= high)
+        {
+            int mid = low + (high - low)/2;
+
+            //System.out.printf("low %d high %d mid %d %n", low, high, mid);
+            if(settleCows(A, B, mid))
+            {
+                //System.out.printf("Settled");
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }//end-of-else
+        } // end-of-while
+
+        return high;
+    }//end-of-aggressive-cows-method
+
 }
