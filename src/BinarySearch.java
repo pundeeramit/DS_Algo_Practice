@@ -1,6 +1,4 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
+import java.util.*;
 
 class BinarySearch {
     // How many times the array is rotated
@@ -416,5 +414,112 @@ class BinarySearch {
         return -1;
 
     }//end-of-main
+
+    public static boolean ifPossible(long workers, ArrayList<Integer> workArray, int timeallocated, long sum)
+    {
+        long totalWork = 0;
+        int iter = 0;
+        for(int i = 0; i < workers; i++)
+        {
+            long currentWork = 0;
+
+
+            while(iter < ( workArray.size() ) && (currentWork + workArray.get(iter)) <= timeallocated)
+            {
+                currentWork += workArray.get(iter);
+                iter ++;
+            }
+
+            totalWork += currentWork;
+            if (iter == workArray.size() || totalWork >= sum)
+                return true;
+
+        } // end-of-for
+
+        return false;
+    }
+
+    public static int paint(int A, int B, ArrayList<Integer> C) {
+
+        long low = Collections.max(C), high = C.stream().mapToInt(Integer::intValue).sum();
+
+        for (int number : C) {
+            high += number;
+        }
+
+        long sum = high;
+        // System.out.printf("low %d, high %d%n", low, high);
+        while (low <= high)
+        {
+            int mid = (int) (low + (high - low)/2);
+            // System.out.printf("mid %d%n",mid);
+            if(ifPossible(A, C, mid, sum))
+            {
+                // System.out.printf("ans: %d%n",mid);
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+            // return low;//indefinate break
+        } // end-of-while
+
+
+        return (int)(((low%10000003)*(B%10000003))%10000003);
+    }   // end-of-paint-method
+
+    public static boolean settleCows(ArrayList<Integer> stalls, int cows, int gap)
+    {
+        int lastCowAtStall = 0;
+        cows --;
+
+        if(cows == 0)
+            return true;
+
+        for (int i = 1; i < stalls.size(); i ++)
+        {
+            //System.out.printf("stalls at i %d, cows left %d %n",stalls.get(i), cows);
+
+            //System.out.printf("stalls difference %d %n", (stalls.get(i) - stalls.get(lastCowAtStall)) );
+
+            if (cows > 0 && ( stalls.get(i) - stalls.get(lastCowAtStall) ) >= gap)
+            {
+                //System.out.printf("yes%n");
+                // System.out.printf("we can place cow at %d %n",stalls.get(i));
+                cows --;
+                lastCowAtStall = i;
+
+                if (cows == 0)
+                    return true;
+            } // end-of-if-clause
+
+        } // end-of-for-loop
+
+        // System.out.printf("returned %n");
+        return false;
+    } // end-of-method
+
+
+    public static int aggressiveCows(ArrayList<Integer> A, int B)
+    {
+        Collections.sort(A);
+        //int low = 1, high = A.get(A.size() - 1) - A.get(0);
+        int low = 1, high = A.get(A.size() - 1);
+
+        while (low <= high)
+        {
+            int mid = low + (high - low)/2;
+
+            //System.out.printf("low %d high %d mid %d %n", low, high, mid);
+            if(settleCows(A, B, mid))
+            {
+                //System.out.printf("Settled");
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }//end-of-else
+        } // end-of-while
+
+        return high;
+    }//end-of-aggressive-cows-method
 
 }
