@@ -50,5 +50,11 @@ public class Main {
         ArrayList<Integer> bioArray = new ArrayList<>(Arrays.asList(1, 20, 50, 40, 10));
         x = BinarySearch.findInBiotonicArray(bioArray, 1);
         System.out.printf("Bio Index %d%n", x);
+
+        ArrayList<Integer> arr1 = new ArrayList<Integer>(Arrays.asList(5, 10, 20, 100, 105));
+        x = TwoPointer.countPairsOfSum(arr1, 110);
+        System.out.printf("Total Pairs %d%n", x);
+
+        x = TwoPointer.threeSumUsingTwoPointer(arr1, 205);
     }
 }
